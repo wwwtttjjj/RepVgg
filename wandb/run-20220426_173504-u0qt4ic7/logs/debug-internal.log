@@ -1,0 +1,70 @@
+2022-04-26 17:35:10,327 INFO    MainThread:19916 [internal.py:wandb_internal():92] W&B internal server running at pid: 19916, started at: 2022-04-26 17:35:10.327409
+2022-04-26 17:35:10,343 INFO    WriterThread:19916 [datastore.py:open_for_write():77] open: D:\deep_learing_work\all_work\RepVgg\wandb\run-20220426_173504-u0qt4ic7\run-u0qt4ic7.wandb
+2022-04-26 17:35:10,343 DEBUG   SenderThread:19916 [sender.py:send():235] send: header
+2022-04-26 17:35:10,343 DEBUG   SenderThread:19916 [sender.py:send():235] send: run
+2022-04-26 17:35:10,843 ERROR   SenderThread:19916 [internal_api.py:execute():143] 401 response executing GraphQL.
+2022-04-26 17:35:10,843 ERROR   SenderThread:19916 [internal_api.py:execute():144] {"errors":[{"message":"permission denied","path":["upsertBucket"],"extensions":{"code":"PERMISSION_ERROR"}}],"data":{"upsertBucket":null}}
+2022-04-26 17:35:11,358 INFO    WriterThread:19916 [datastore.py:close():281] close: D:\deep_learing_work\all_work\RepVgg\wandb\run-20220426_173504-u0qt4ic7\run-u0qt4ic7.wandb
+2022-04-26 17:35:11,358 INFO    HandlerThread:19916 [handler.py:finish():778] shutting down handler
+2022-04-26 17:35:11,358 ERROR   MainThread:19916 [internal.py:wandb_internal():167] Thread SenderThread:
+Traceback (most recent call last):
+  File "C:\Users\10194\AppData\Local\Programs\Python\Python39\lib\site-packages\wandb\sdk\lib\retry.py", line 102, in __call__
+    result = self._call_fn(*args, **kwargs)
+  File "C:\Users\10194\AppData\Local\Programs\Python\Python39\lib\site-packages\wandb\sdk\internal\internal_api.py", line 146, in execute
+    six.reraise(*sys.exc_info())
+  File "C:\Users\10194\AppData\Roaming\Python\Python39\site-packages\six.py", line 719, in reraise
+    raise value
+  File "C:\Users\10194\AppData\Local\Programs\Python\Python39\lib\site-packages\wandb\sdk\internal\internal_api.py", line 140, in execute
+    return self.client.execute(*args, **kwargs)
+  File "C:\Users\10194\AppData\Local\Programs\Python\Python39\lib\site-packages\wandb\vendor\gql-0.2.0\wandb_gql\client.py", line 52, in execute
+    result = self._get_result(document, *args, **kwargs)
+  File "C:\Users\10194\AppData\Local\Programs\Python\Python39\lib\site-packages\wandb\vendor\gql-0.2.0\wandb_gql\client.py", line 60, in _get_result
+    return self.transport.execute(document, *args, **kwargs)
+  File "C:\Users\10194\AppData\Local\Programs\Python\Python39\lib\site-packages\wandb\vendor\gql-0.2.0\wandb_gql\transport\requests.py", line 39, in execute
+    request.raise_for_status()
+  File "C:\Users\10194\AppData\Local\Programs\Python\Python39\lib\site-packages\requests\models.py", line 960, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://api.wandb.ai/graphql
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\10194\AppData\Local\Programs\Python\Python39\lib\site-packages\wandb\apis\normalize.py", line 24, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\10194\AppData\Local\Programs\Python\Python39\lib\site-packages\wandb\sdk\internal\internal_api.py", line 1296, in upsert_run
+    response = self.gql(mutation, variable_values=variable_values, **kwargs)
+  File "C:\Users\10194\AppData\Local\Programs\Python\Python39\lib\site-packages\wandb\sdk\lib\retry.py", line 118, in __call__
+    if not check_retry_fn(e):
+  File "C:\Users\10194\AppData\Local\Programs\Python\Python39\lib\site-packages\wandb\util.py", line 868, in no_retry_auth
+    raise CommError("Invalid or missing api_key. Run `wandb login`")
+wandb.errors.CommError: Invalid or missing api_key. Run `wandb login`
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\10194\AppData\Local\Programs\Python\Python39\lib\site-packages\wandb\sdk\internal\internal_util.py", line 54, in run
+    self._run()
+  File "C:\Users\10194\AppData\Local\Programs\Python\Python39\lib\site-packages\wandb\sdk\internal\internal_util.py", line 105, in _run
+    self._process(record)
+  File "C:\Users\10194\AppData\Local\Programs\Python\Python39\lib\site-packages\wandb\sdk\internal\internal.py", line 312, in _process
+    self._sm.send(record)
+  File "C:\Users\10194\AppData\Local\Programs\Python\Python39\lib\site-packages\wandb\sdk\internal\sender.py", line 237, in send
+    send_handler(record)
+  File "C:\Users\10194\AppData\Local\Programs\Python\Python39\lib\site-packages\wandb\sdk\internal\sender.py", line 695, in send_run
+    self._init_run(run, config_value_dict)
+  File "C:\Users\10194\AppData\Local\Programs\Python\Python39\lib\site-packages\wandb\sdk\internal\sender.py", line 719, in _init_run
+    server_run, inserted = self._api.upsert_run(
+  File "C:\Users\10194\AppData\Local\Programs\Python\Python39\lib\site-packages\wandb\apis\normalize.py", line 62, in wrapper
+    six.reraise(CommError, CommError(message, err), sys.exc_info()[2])
+  File "C:\Users\10194\AppData\Roaming\Python\Python39\site-packages\six.py", line 718, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\10194\AppData\Local\Programs\Python\Python39\lib\site-packages\wandb\apis\normalize.py", line 24, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\10194\AppData\Local\Programs\Python\Python39\lib\site-packages\wandb\sdk\internal\internal_api.py", line 1296, in upsert_run
+    response = self.gql(mutation, variable_values=variable_values, **kwargs)
+  File "C:\Users\10194\AppData\Local\Programs\Python\Python39\lib\site-packages\wandb\sdk\lib\retry.py", line 118, in __call__
+    if not check_retry_fn(e):
+  File "C:\Users\10194\AppData\Local\Programs\Python\Python39\lib\site-packages\wandb\util.py", line 868, in no_retry_auth
+    raise CommError("Invalid or missing api_key. Run `wandb login`")
+wandb.errors.CommError: Invalid or missing api_key. Run `wandb login`
+2022-04-26 17:35:13,437 INFO    MainThread:19916 [internal.py:handle_exit():82] Internal process exited
