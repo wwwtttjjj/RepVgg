@@ -11,7 +11,7 @@ parse.add_argument('--batch-size', help = 'the size of training datesets', defau
 parse.add_argument('--lr', help = 'lr', default=1e-3,type=float)
 parse.add_argument('--epochs', help = 'nums of train', default=50)
 parse.add_argument('--wandb', help = 'use or not use wandb', default=True, type=bool)
-parse.add_argument('--yaml', help = 'yaml file path, edit', type = str)
+# parse.add_argument('--yaml', help = 'yaml file path, edit', type = str)
 args = parse.parse_args()
 print(args.batch_size, args.lr, args.epochs)
 
@@ -42,8 +42,10 @@ if args.wandb:
         'epochs':args.epochs, 
         'batch_size':args.batch_size
     }
-
-modelRepVgg = model.get_RepVgg_func_by_name('RepVgg-A0')(num_classes = 10).to(device)
+if os.path.exists('./RepVgg.pt'):
+    modelRepVgg = torch.load('./RepVgg.pt', map_location=torch.device(device))
+else:
+    modelRepVgg = model.get_RepVgg_func_by_name('RepVgg-A0')(num_classes = 10).to(device)
 modelRepVgg.train()
 optimizer = torch.optim.SGD(modelRepVgg.parameters(), lr = args.lr)
 
@@ -76,6 +78,9 @@ for eopch in range(args.epochs):
         if args.wandb:
             wandb.log({'train_loss':train_mean_loss,'test_acc:':test_acc})    
     modelRepVgg.train()
+#保存模型，保存转化了和没有转化的模型
 torch.save(modelRepVgg, './RepVgg.pt')
+torch.save(model.repVgg_model_convert(modelRepVgg), './RepVgg_Convert.pt')
+
     
 
