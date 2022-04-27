@@ -19,4 +19,5 @@ trainDateParrelle.py是用DDP加速
 ```
  python -m torch.distributed.launch --use_env --standalone --nnodes 1 --nproc_per_node [nums of gpus] trainDateParrelle.py
 ```
-
+pt file:
+https://drive.google.com/file/d/13GFn_UnUCMaUfkKQntUwaeIq7zEg3EPW/view?usp=sharing, https://drive.google.com/file/d/1WhaUcuiOcWY1ZFb9Mc1r_IAson8Hr6rW/view?usp=sharing
