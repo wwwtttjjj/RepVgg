@@ -125,7 +125,9 @@ class RepVggblock(nn.Module):
         if hasattr(self, 'id_tensor'):
             self.__delattr__('id_tensor')
         self.deploy = True
-
+    '''
+    weight init
+    '''
     def _init_weight(self):
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
@@ -178,8 +180,28 @@ def create_RepVgg_A0(num_classes = 1000,deploy = False):
     return RepVgg(num_blocks=[2,4,14,1], num_classes=num_classes,
     width_multiplier=[0.75,0.75,0.75,2.5],override_groups_map=None,deploy=deploy)
 
+def create_RepVgg_A1(num_classes = 1000,deploy = False):
+    return RepVgg(num_blocks=[2,4,14,1], num_classes=num_classes,
+    width_multiplier=[1,1,1,2.5],override_groups_map=None,deploy=deploy)
+
+def create_RepVgg_A2(num_classes = 1000,deploy = False):
+    return RepVgg(num_blocks=[2,4,14,1], num_classes=num_classes,
+    width_multiplier=[1.5,1.5,1.5,2.75],override_groups_map=None,deploy=deploy)
+
+def create_RepVgg_B0(num_classes = 1000,deploy = False):
+    return RepVgg(num_blocks=[4,6,16,1], num_classes=num_classes,
+    width_multiplier=[1,1,1,2.5],override_groups_map=None,deploy=deploy)
+def create_RepVgg_B1(num_classes = 1000,deploy = False):
+    return RepVgg(num_blocks=[4,6,16,1], num_classes=num_classes,
+    width_multiplier=[2,2,2,4],override_groups_map=None,deploy=deploy)
+
+
 fun_dict = {
-    'RepVgg-A0':create_RepVgg_A0
+    'RepVgg-A0':create_RepVgg_A0,
+    'RepVgg-A1':create_RepVgg_A1,
+    'RepVgg-A2':create_RepVgg_A2,
+    'RepVgg-B0':create_RepVgg_B0,
+    'RepVgg-B1':create_RepVgg_B1,
 }
 def get_RepVgg_func_by_name(name):
     return fun_dict[name]

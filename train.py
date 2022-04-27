@@ -13,7 +13,6 @@ parse.add_argument('--epochs', help = 'nums of train', default=50)
 parse.add_argument('--wandb', help = 'use or not use wandb', default=True, type=bool)
 # parse.add_argument('--yaml', help = 'yaml file path, edit', type = str)
 args = parse.parse_args()
-print(args.batch_size, args.lr, args.epochs)
 
 batch_size = args.batch_size
 device = torch.device('cuda') if torch.cuda.is_available() else 'cpu'
